@@ -3,8 +3,11 @@
   "version": "0.0.1",
   "description": "A notion addon browser extension.",
   "private": true,
+  "scripts": {
+    "start": "./node_modules/.bin/webpack --watch --mode development",
+    "build": "./node_modules/.bin/webpack --mode production"
+  },
   "author": "Lishuang",
-  "license": "MIT",
   "dependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
@@ -14,6 +17,7 @@
     "@types/node": "^14.14.20",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^7.0.0",
     "css-loader": "^5.0.1",
     "less": "^4.1.0",

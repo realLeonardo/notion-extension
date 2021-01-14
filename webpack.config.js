@@ -1,8 +1,11 @@
 const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const ExtensionReloader = require("webpack-extension-reloader");
 
-module.exports = () => {
+module.exports = (env, argv) => {
+  const mode = argv.mode || "production";
+
   const entry = {
     content: path.join(__dirname, "src", "content.ts"),
     background: path.join(__dirname, "src", "background.ts"),
@@ -43,16 +46,30 @@ module.exports = () => {
         },
       ],
     }),
-
-    // DEV
-    // new ExtensionReloader({
-    //   manifest: path.resolve(__dirname, "src", "manifest.json"),
-    // }),
   ];
 
+  const extraConfig = {};
+  if (mode === "development") {
+    console.info("Dev");
+    plugins.push(
+      new ExtensionReloader({
+        manifest: path.resolve(__dirname, "src", "assets", "manifest.json"),
+      })
+    );
+
+    // do nth with extraConfig
+  } else {
+    console.info("Prod");
+    plugins.push(new CleanWebpackPlugin());
+
+    extraConfig.optimization = {
+      minimize: true,
+      minimizer: [],
+    };
+  }
+
   return {
-    mode: "development",
-    // watch: true,
+    mode,
     entry,
     module: {
       rules,
@@ -65,5 +82,6 @@ module.exports = () => {
       filename: "[name].bundle.js",
       path: path.resolve(__dirname, "dist"),
     },
+    ...extraConfig,
   };
 };

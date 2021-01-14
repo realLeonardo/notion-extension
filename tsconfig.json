@@ -9,9 +9,8 @@
     "target": "es5",
     "jsx": "react",
     "allowJs": false,
-    "types": ["node", "chrome", "react", "react-dom"],
+    "types": ["chrome"],
     "lib": ["es6", "dom"]
   },
-  "include": ["./src/*"],
   "exclude": ["dist", "node_modules", "webpack.config.js"]
 }

@@ -4,11 +4,16 @@
   "version": "0.0.1",
   "description": "todo",
   "author": "Lishuang",
-
   "background": {
     "scripts": ["background.bundle.js"],
     "persistent": false
   },
+  "content_scripts": [
+    {
+      "matches": ["*://*.notion.so/*"],
+      "js": ["content.bundle.js"]
+    }
+  ],
   "page_action": {
     "default_title": "Notion Boost",
     "default_popup": "popup.html",
