@@ -5,8 +5,7 @@
 [x] project init with webpack
 [ ] chrome storage
 [ ] content contact with background
-[ ] insert into a shadowContainer
-[ ] Local scope css
+[ ] shadow dom & inside css
 
 ## Functions
 

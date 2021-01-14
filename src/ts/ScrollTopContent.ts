@@ -1,16 +1,14 @@
 import ScrollTopView from "../tsx/ScrollTopView";
 import { utils } from "../utils";
 
+const NOTION_HELP_BTN_CLASSNAME = "div.notion-help-button";
+
 export default class ScrollTopContent {
-  static depElSeletor: string = "div.notion-help-button";
-
   static async init() {
-    const el = await utils.asyncGetElement(this.depElSeletor);
-    console.log(el);
+    const targetEl = await utils.asyncGetElement(NOTION_HELP_BTN_CLASSNAME);
+    const tempContainer = document.createElement("div");
 
-    const shadowContainer = document.createElement("div");
-    el.before(shadowContainer);
-    console.log(Array.from(el.parentNode!.children).indexOf(el));
-    ScrollTopView.renderTo(shadowContainer);
+    targetEl.before(tempContainer);
+    ScrollTopView.renderTo(tempContainer);
   }
 }
