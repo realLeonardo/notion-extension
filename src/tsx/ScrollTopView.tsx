@@ -6,6 +6,8 @@ import { utils } from "../utils";
 const NOTION_EDITOR_CONTAINER = "div.notion-frame > div.notion-scroller";
 
 export default class ScrollTopView extends React.Component {
+  private notionEditorContainer: HTMLElement;
+
   public render() {
     return (
       <div
@@ -22,18 +24,20 @@ export default class ScrollTopView extends React.Component {
   }
 
   protected handleScrollTopBtnClick() {
-    const notionEditorContainer = utils.queryElement(NOTION_EDITOR_CONTAINER);
+    try {
+      if (!this.notionEditorContainer) {
+        this.notionEditorContainer = utils.queryElement(
+          NOTION_EDITOR_CONTAINER
+        ) as HTMLElement;
+      }
 
-    if (!notionEditorContainer) {
-      console.error("cannot find ${NOTION_EDITOR_CONTAINER}");
-      return;
+      this.notionEditorContainer.scroll({
+        top: 0,
+        left: 0,
+      });
+    } catch (error) {
+      console.error("Cannot find HTMLElement: NotionEditorContainer");
     }
-
-    // Scroll to top
-    notionEditorContainer.scroll({
-      top: 0,
-      left: 0,
-    });
   }
 
   static renderTo(targetEl: HTMLElement): void {

@@ -1,6 +1,6 @@
 import "./less/popup.less";
 import * as React from "react";
-import { render } from "react-dom";
+import * as ReactDOM from "react-dom";
 
 class App extends React.Component {
   public state: {
@@ -36,4 +36,4 @@ class App extends React.Component {
   }
 }
 
-render(<App></App>, document.body);
+ReactDOM.render(<App />, document.body);

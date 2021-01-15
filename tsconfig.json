@@ -12,5 +12,6 @@
     "types": ["chrome"],
     "lib": ["es6", "dom"]
   },
-  "exclude": ["dist", "node_modules", "webpack.config.js"]
+  "include": ["src/*"],
+  "exclude": ["node_modules"]
 }
