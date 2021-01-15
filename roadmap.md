@@ -3,13 +3,14 @@
 ## Code about
 
 [x] project init with webpack
-[ ] chrome storage
+[x] chrome storage
 [ ] content contact with background
 [ ] shadow dom & inside css
 
 ## Functions
 
-[x] Scroll to top button
-[ ] Outline
+[x] 一键回顶按钮
+[x] Hide floating help button from all pages
 [ ] Don't show Slash command menu when pressing '/'
-[ ] Hide floating help button from all pages
+[ ] Outline
+[ ] 适配 dark mode

@@ -1,9 +1,9 @@
 import "../less/scroll-top-view.less";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { storage } from "../helpers/storage";
 import { utils } from "../utils";
-
-const NOTION_EDITOR_CONTAINER = "div.notion-frame > div.notion-scroller";
+import { NOTION_EDITOR_CONTAINER } from "../const";
 
 export default class ScrollTopView extends React.Component {
   private notionEditorContainer: HTMLElement;
@@ -12,7 +12,7 @@ export default class ScrollTopView extends React.Component {
     return (
       <div
         className="nex-scroll-top-btn"
-        onClick={this.handleScrollTopBtnClick}
+        onClick={this.handleScrollTopBtnClick.bind(this)}
       >
         👆
       </div>
@@ -35,9 +35,14 @@ export default class ScrollTopView extends React.Component {
         top: 0,
         left: 0,
       });
+      this.test();
     } catch (error) {
       console.error("Cannot find HTMLElement: NotionEditorContainer");
     }
+  }
+
+  private test() {
+    storage.set({ hideNotionHelpBtn: true });
   }
 
   static renderTo(targetEl: HTMLElement): void {

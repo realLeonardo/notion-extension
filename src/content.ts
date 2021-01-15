@@ -1,5 +1,22 @@
-import ScrollTopContent from "./ts/ScrollTopContent";
+import "./less/global.less";
+import { storage } from "./helpers/storage";
+import {
+  NotionExtraStyleConfig,
+  notionExtraStyleConfigContent,
+} from "./ts/NotionExtraStyleContent";
+import { scrollTopContent } from "./ts/ScrollTopContent";
 
-console.log("Here is content");
+// init features config
+storage.get(
+  ["disableScrollTopBtn", "hideNotionHelpBtn"],
+  ({ disableScrollTopBtn, hideNotionHelpBtn }) => {
+    if (!disableScrollTopBtn) {
+      scrollTopContent.init();
+    }
 
-ScrollTopContent.init();
+    const styleConfig: NotionExtraStyleConfig = {
+      hideNotionHelpBtn,
+    };
+    notionExtraStyleConfigContent.init(styleConfig);
+  },
+);

@@ -2,16 +2,24 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "sourceMap": true,
-    "noImplicitThis": true,
+    "alwaysStrict": true,
     "noImplicitAny": true,
-    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "strictFunctionTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
     "module": "es6",
     "target": "es5",
     "jsx": "react",
     "allowJs": false,
+    "typeRoots": ["./node_modules/@types", "./src/typings"],
     "types": ["chrome"],
     "lib": ["es6", "dom"]
   },
-  "include": ["src/*"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }

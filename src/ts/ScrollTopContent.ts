@@ -1,10 +1,9 @@
-import ScrollTopView from "../tsx/ScrollTopView";
 import { utils } from "../utils";
+import ScrollTopView from "../tsx/ScrollTopView";
+import { NOTION_HELP_BTN_CLASSNAME } from "../const";
 
-const NOTION_HELP_BTN_CLASSNAME = "div.notion-help-button";
-
-export default class ScrollTopContent {
-  static async init() {
+class ScrollTopContent {
+  async init() {
     const targetEl = await utils.asyncGetElement(NOTION_HELP_BTN_CLASSNAME);
     const tempContainer = document.createElement("div");
 
@@ -12,3 +11,5 @@ export default class ScrollTopContent {
     ScrollTopView.renderTo(tempContainer);
   }
 }
+
+export const scrollTopContent = new ScrollTopContent();

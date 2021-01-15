@@ -1,8 +1,6 @@
 /**
  * todo
  */
-console.log("background");
-
 chrome.runtime.onInstalled.addListener((details) => {
   chrome.declarativeContent.onPageChanged.removeRules(undefined, () => {
     chrome.declarativeContent.onPageChanged.addRules([
