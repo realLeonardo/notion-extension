@@ -25,9 +25,7 @@ class App extends React.Component {
 
   handleClick() {
     try {
-      chrome.extension
-        .getBackgroundPage()
-        ?.window.console.log(this.state.clickCount);
+      chrome.extension.getBackgroundPage()?.window.console.log(this.state.clickCount);
     } catch (error) {}
 
     this.setState({

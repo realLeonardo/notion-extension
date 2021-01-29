@@ -9,24 +9,16 @@ export namespace utils {
    * @param queryElString Select the node that will be observed for mutations
    * @param config Options for the observer (which mutations to observe)
    */
-  export function ElementObserver(
-    queryElString: string,
-    config: MutationObserverInit,
-  ) {
+  export function ElementObserver(queryElString: string, config: MutationObserverInit) {
     const targetNode = document.querySelector(queryElString);
 
     // Callback function to execute when mutations are observed
-    const callback = (
-      mutationsList: MutationRecord[],
-      observer: MutationObserver,
-    ) => {
+    const callback = (mutationsList: MutationRecord[], observer: MutationObserver) => {
       for (const mutation of mutationsList) {
         if (mutation.type === "childList") {
           console.log("A child node has been added or removed.");
         } else if (mutation.type === "attributes") {
-          console.log(
-            "The " + mutation.attributeName + " attribute was modified.",
-          );
+          console.log("The " + mutation.attributeName + " attribute was modified.");
         }
       }
 
@@ -38,23 +30,18 @@ export namespace utils {
     observer.observe(targetNode as Node, config);
   }
 
-  /** 
+  /**
    * 同步获取指定元素
    * @param selector 选择器, e.g.#root .icon section
    */
-  export function asyncGetElement(
-    selector: string,
-  ): Promise<HTMLElement> {
+  export function asyncGetElement(selector: string): Promise<HTMLElement> {
     const targetEl = queryElement(selector);
 
     if (targetEl) {
       return Promise.resolve(targetEl as HTMLElement);
     }
 
-    const forEachElement = <T extends Node>(
-      list: NodeListOf<T>,
-      handler: (item: T, idx: number) => void,
-    ) => {
+    const forEachElement = <T extends Node>(list: NodeListOf<T>, handler: (item: T, idx: number) => void) => {
       for (let i = 0; i < list.length; i++) {
         const el = list[i];
         handler(el, i);
@@ -68,10 +55,7 @@ export namespace utils {
             return;
           }
           const targetEl = record.target as HTMLElement;
-          if (
-            (targetEl && targetEl.matches && targetEl.matches(selector)) ||
-            (targetEl && targetEl.querySelector(selector))
-          ) {
+          if ((targetEl && targetEl.matches && targetEl.matches(selector)) || (targetEl && targetEl.querySelector(selector))) {
             observer.disconnect();
             resolve(queryElement(selector) as HTMLElement);
             return;
