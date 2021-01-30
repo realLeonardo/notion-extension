@@ -5,29 +5,30 @@ export namespace utils {
   }
 
   /**
-   * TODO: Element Observer
    * @param queryElString Select the node that will be observed for mutations
    * @param config Options for the observer (which mutations to observe)
    */
-  export function ElementObserver(queryElString: string, config: MutationObserverInit) {
-    const targetNode = document.querySelector(queryElString);
+  export async function elementObserver(queryElString: string, cb: Function, config?: MutationObserverInit) {
+    const targetNode = await asyncGetElement(queryElString);
+    let tmTemp: number;
 
     // Callback function to execute when mutations are observed
     const callback = (mutationsList: MutationRecord[], observer: MutationObserver) => {
-      for (const mutation of mutationsList) {
-        if (mutation.type === "childList") {
-          console.log("A child node has been added or removed.");
-        } else if (mutation.type === "attributes") {
-          console.log("The " + mutation.attributeName + " attribute was modified.");
-        }
+      if (tmTemp) {
+        clearTimeout(tmTemp);
       }
-
-      // Later, you can stop observing
-      observer.disconnect();
+      tmTemp = setTimeout(() => {
+        cb();
+      }, 300);
     };
 
     const observer = new MutationObserver(callback);
-    observer.observe(targetNode as Node, config);
+    observer.observe(targetNode as Node, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+      attributes: false,
+    });
   }
 
   /**

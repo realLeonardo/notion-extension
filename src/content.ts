@@ -1,27 +1,40 @@
 import "./less/global.less";
+import "./less/extra-style.less";
 import { storage } from "./helpers/storage";
-import { NotionExtraStyleConfig, notionExtraStyleConfigContent } from "./ts/NotionExtraStyleContent";
+import { notionExtraStyleConfigContent } from "./ts/NotionExtraStyleContent";
 import { scrollTopContent } from "./ts/ScrollTopContent";
 import { outlineContent } from "./ts/OutlineContent";
 
-console.log("Here is content");
+function initContent() {
+  // init features config
+  storage.get(
+    ["disableScrollTopBtn", "hideNotionHelpBtn", "disableOutline", "hideNotionPageDiscussions"],
+    ({ disableScrollTopBtn, hideNotionHelpBtn, disableOutline, hideNotionPageDiscussions }) => {
+      scrollTopContent.init(disableScrollTopBtn);
+      outlineContent.init(disableOutline);
 
-// init features config
-storage.get(
-  ["disableScrollTopBtn", "hideNotionHelpBtn", "disableOutline", "hideNotionPageDiscussions"],
-  ({ disableScrollTopBtn, hideNotionHelpBtn, disableOutline, hideNotionPageDiscussions }) => {
-    if (!disableScrollTopBtn) {
-      scrollTopContent.init();
+      const styleConfig = {
+        hideNotionHelpBtn,
+        hideNotionPageDiscussions,
+      };
+      notionExtraStyleConfigContent.init(styleConfig);
     }
+  );
+}
 
-    if (!disableOutline) {
-      outlineContent.init();
-    }
-
-    const styleConfig: NotionExtraStyleConfig = {
-      hideNotionHelpBtn,
-      hideNotionPageDiscussions,
-    };
-    notionExtraStyleConfigContent.init(styleConfig);
+document.addEventListener("readystatechange", () => {
+  if (document.readyState === "complete") {
+    initContent();
   }
-);
+});
+
+// NOTE: 监听url变化。暂时不用
+// let pathnameTemp = location.pathname;
+// document.body.addEventListener("click", () => {
+//   setTimeout(() => {
+//     if (location.pathname !== pathnameTemp) {
+//       pathnameTemp = location.pathname;
+//       initContent();
+//     }
+//   }, 0);
+// });
